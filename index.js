@@ -9,8 +9,10 @@ const server = http.createServer((req, res) => {
   } else if (pathName === 'product') {
     res.end('This is the product page');
   } else {
-    res.writeHead(404)
-    res.end('Page could not be found');
+    res.writeHead(404, {
+      'Content-type': 'text/html'
+    });
+    res.end('<h1>Page could not be found</h1>');
   }
 });
 
