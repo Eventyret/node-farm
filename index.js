@@ -2,13 +2,18 @@ const fs = require('fs');
 const http = require('http');
 const url = require('url');
 
+const tempOverview = fs.readFileSync(`${__dirname}/templates/overview.html`, 'utf-8');
+const tempProduct = fs.readFileSync(`${__dirname}/templates/product.html`, 'utf-8');
+const tempCard = fs.readFileSync(`${__dirname}/templates/card.html`, 'utf-8');
 const data = fs.readFileSync(`${__dirname}/data/data.json`, 'utf-8');
 const productData = JSON.parse(data);
-
 const server = http.createServer((req, res) => {
   const pathName = req.url;
   if (pathName === '/' || pathName === '/overview') {
-    res.end('Welcome to the Overview Page');
+    res.writeHead(200, {
+      'Content-type': 'text/html'
+    });
+    res.end(tempOverview);
   } else if (pathName === 'product') {
     res.end('This is the product page');
   } else if (pathName === '/api') {
